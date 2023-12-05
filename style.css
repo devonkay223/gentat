@@ -1,0 +1,40 @@
+html, body {
+  background: #332B2B;
+  margin: 0;
+  padding-left: 6px;
+}
+
+/* .mySliders{
+  width: 80px;
+  background-color:#FF0000;
+  
+  /* Removes some defaults */
+  /* -webkit-appearance: none;
+} */ 
+
+p, h1 {
+  color: rgb(226, 219, 219);
+}
+
+button, select {
+  background-color: rgb(1, 0, 1);
+  border: none;
+  color: rgb(226, 219, 219);
+  padding: 4px 6px;
+  text-align: center;
+  text-decoration: none;
+  margin-right:5px;
+  /* display: inline; */
+  font-size: 16px;  
+  cursor: pointer;
+}
+
+select {
+  background-color: rgb(1, 0, 1);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  /* Remove default arrow */
+  /* background-image: url(...); */
+  /* Add custom arrow */
+}
