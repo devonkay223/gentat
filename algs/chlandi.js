@@ -1,10 +1,10 @@
 let particles;
 // let sliders;
 
-let chf1; //frequency 1
-let chf2; //frequency 2
-let v1; //velocity
-let n1; //number
+var chf1; //frequency 1
+var chf2; //frequency 2
+var v1; //velocity
+var n1; //number
 
 // chladni frequency params
 let a=1;
@@ -30,6 +30,8 @@ function setupCH() {
 function drawCH() {
   background(backgroundColor);
   stroke(255);
+  textVisCH();
+  textVisWindowSliders()
 
   chf1 = sF1.value();
   chf2 = sF2.value();
@@ -37,29 +39,10 @@ function drawCH() {
   n1 = sN1.value();
 
   moveParticles();
+  outline();
 }
 
-function chUISetUp() {
-  sliderX = 500;
-  sliderY = 160;
-  space = 30;
-  let mul = 2
 
-  sF1 = createSlider(1, 10, 7, 1);
-  sF1.position(sliderX, sliderY);
-  sF1.style('width', '100px');  
-  sF2 = createSlider(1, 10, 2, 1); 
-  sF2.position(sliderX, sliderY +space);
-  sF2.style('width', '100px');  
-  sV1 = createSlider(0.01, 0.1, 0.02, 0.01); 
-  sV1.position(sliderX, sliderY +space*mul);
-  sV1.style('width', '100px'); 
-  mul++;
-  sN1 = createSlider(1000, 10000, 10000, 1000)
-  sN1.position(sliderX, sliderY +space*mul);
-  sN1.style('width', '100px'); 
-  mul++;
-}
 
 function setupParticles() {
   // particle array
@@ -102,8 +85,10 @@ class Particle {
     if (this.y >= 1) this.y = 1;
 
     // convert to screen space
-    this.xOff = width * this.x; // (this.x + 1) / 2 * width;
-    this.yOff = height * this.y; // (this.y + 1) / 2 * height;
+    this.xOff = algBoundsW * this.x; // (this.x + 1) / 2 * width;
+    this.yOff = algBoundsH * this.y; // (this.y + 1) / 2 * height;
+    // this.xOff = this.x ; //(this.x + 1)/2 * algBoundsW; // (this.x + 1) / 2 * width;
+    // this.yOff = this.y; //(this.y + 1) / 2 * algBoundsH;
   }
 
   show() {
@@ -119,4 +104,53 @@ function moveParticles() {
     particle.move();
     particle.show();
   }
+}
+
+
+
+// UI mess
+function chUISetUp() {
+  let mul = 5;
+  textVisCH();
+  sF1 = createSlider(1, 10, 7, 1);
+  sF1.position(sliderX,  sliderY +space*mul);
+  sF1.style('width', '100px');  
+  mul++;
+  sF2 = createSlider(1, 10, 2, 1); 
+  sF2.position(sliderX, sliderY +space*mul);
+  sF2.style('width', '100px');  
+  mul++
+  sV1 = createSlider(0.01, 0.1, 0.02, 0.01); 
+  sV1.position(sliderX, sliderY +space*mul);
+  sV1.style('width', '100px'); 
+  mul++;
+  sN1 = createSlider(1000, 10000, 10000, 1000)
+  sN1.position(sliderX, sliderY +space*mul);
+  sN1.style('width', '100px'); 
+  mul++;
+}
+
+function textVisCH(){
+  fill("#fff")
+  noStroke();
+  let mul =5;
+  
+  text('Frequency 1', textX, textY+space*mul);
+  mul++;
+  text('Frequency 2', textX, textY+space*mul);
+  mul++;
+  text('Velocity 1', textX, textY+space*mul);
+  mul++;
+  text('Num of Particles', textX, textY+space*mul);
+
+  stroke("#fff");
+  noFill();
+}
+
+function removeSlidersCH(){
+  // document.getElementById("sliders") ="";
+  sF1.remove();
+  sF2.remove();
+  sV1.remove();
+  sN1.remove();
 }

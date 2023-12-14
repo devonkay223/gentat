@@ -25,21 +25,24 @@ var d2;
 var d3;
 var d4;
 
+// var reps=0.0;
+
 var timeStamp=0;
 var diff=0;
 
 function setupH() { 
   noFill();
   strokeWeight(1);
-  textSize(14);
   line = [];
   
   hUISetUp();
+  // frameRate(1);
 } 
 
 function drawH() { 
   background(backgroundColor); 
-  textVis();
+  textVisH();
+  textVisWindowSliders()
   var t = ((millis()-diff) / 2000);
   a1 = sA1.value();
   a2 = sA2.value();
@@ -50,8 +53,10 @@ function drawH() {
   p2 = pA2.value();
   p3 = pA3.value();
   p4 = pA4.value();
+
+  outline();
   
-  translate(width/2, height/2);
+  translate(width/4, height/3);
     
   line.push({
     x: (a1*sin(t*f1+p1))+(a2*sin(t*f2+p2)),
@@ -61,6 +66,7 @@ function drawH() {
   drawVertices(line);
 }
 
+
 function drawVertices(vertices) {
   beginShape();
   for (var i = 0; i < vertices.length; i++) {
@@ -69,19 +75,22 @@ function drawVertices(vertices) {
   endShape();
 }
 
+// UI mess
 function hUISetUp(){
-  textVis();
-  sliderX = 600;
-  sliderY = 160;
-  space = 30;
-  let mul = 2
+  textVisH();
+  // sliderX = 600;
+  // sliderY = 160;
+  // space = 30;
+  let mul = 5;
     
   sA1 = createSlider(-200, 200, 80, 5) //0.8, 10, 6, 0.2);
-  sA1.position(sliderX, sliderY);
+  sA1.position(sliderX, sliderY +space*mul);
   sA1.style('width', '100px');  
+  mul++
   sA2 = createSlider(-200, 200, 80, 5) //0.8, 10, 6, 0.2);
-  sA2.position(sliderX, sliderY +space);
+  sA2.position(sliderX, sliderY +space*mul);
   sA2.style('width', '100px');  
+  mul++
   sA3 = createSlider(-200, 200, 80, 5) //0.8, 10, 6, 0.2);
   sA3.position(sliderX, sliderY +space*mul);
   sA3.style('width', '100px'); 
@@ -90,9 +99,6 @@ function hUISetUp(){
   sA4.position(sliderX, sliderY+space*mul);
   sA4.style('width', '100px'); 
   mul+=2;
-
-  sA1.parent("sliders")
-  sA2.parent("sliders")
   
   pA1 = createSlider(0.1, 10, 0.19, 0.05)
   pA1.position(sliderX, sliderY+space*mul);
@@ -109,55 +115,46 @@ function hUISetUp(){
   pA4 = createSlider(0.1, 10, 2.3, 0.05)
   pA4.position(sliderX, sliderY+space*mul);
   pA4.style('width', '100px'); 
-  mul++;
+  mul+=2;
   
-  
-  // startButton = createButton('start');
-  // startButton.position(110, sliderY+space*4);
-  // startButton.mousePressed(start);
-  // stopButton = createButton('stop');
-  // stopButton.position(20, sliderY+space*mul);
-  // stopButton.mousePressed(stop);
-  // resetButton = createButton('reset/start');
-  // resetButton.position(65, sliderY+space*mul);
-  // resetButton.mousePressed(reset);
-  
+  // rp1 = createSlider(0, 100, 10, 0.1)
+  // rp1.position(sliderX, sliderY+space*mul);
+  // rp1.style('width', '100px'); 
 }
 
 
-function textVis(){
+function textVisH(){
   fill("#fff")
   noStroke();
-  textX = 500; 
-  textY = 53;
-  space =30;
-  let mul =2;
+  let mul =5;
   
-  text('Amplitudes', textX, 30);
-  text('1', textX, textY);
-  text('2', textX, textY+space);
-  text('3', textX, textY+space*mul);
+  text('Amplitude 1', textX, textY+space*mul);
+  mul++
+  text('Amplitude 2', textX, textY+space*mul);
   mul++;
-  text('4', textX, textY+space*mul);
+  text('Amplitude 3', textX, textY+space*mul);
+  mul++;
+  text('Amplitude 4', textX, textY+space*mul);
    mul++;
   
-  text('Periods', textX, textY+space*mul);
+  text('', textX, textY+space*mul);
    mul++;
-  text('1', textX, textY+space*mul);
+  text('Period 1', textX, textY+space*mul);
    mul++;
-  text('2', textX, textY+space*mul);
+  text('Period 2', textX, textY+space*mul);
    mul++;
-  text('3', textX, textY+space*mul);
+  text('Period 3', textX, textY+space*mul);
    mul++;
-  text('4', textX, textY+space*mul);
+  text('Period 4', textX, textY+space*mul);
+
+  // mul+=2;
+  // text('Repetition', textX, textY+space*mul);
 
   stroke("#fff");
   noFill();
 }
 
 function removeSlidersH(){
-  console.log('called')
-  // document.getElementById("sliders") ="";
   sA1.remove();
   sA2.remove();
   sA3.remove();
@@ -167,4 +164,6 @@ function removeSlidersH(){
   pA2.remove();
   pA3.remove();
   pA4.remove();
+
+  // rp1.remove();
 }
